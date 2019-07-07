@@ -20,7 +20,7 @@ def lambda_handler(event, context):
     }
 
 def youtube_video_stream(url):
-    command = f"./youtube-dl '{url}' -o -"
+    command = f"./youtube-dl --cache-dir '/tmp' '{url}' -o -"
     ytdl_process = subprocess.Popen(shlex.split(command), stdout=subprocess.PIPE)
     return ytdl_process.stdout
 
