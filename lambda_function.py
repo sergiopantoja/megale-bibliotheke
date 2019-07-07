@@ -6,13 +6,14 @@ import subprocess
 
 s3 = boto3.client('s3')
 bucket = os.environ['MEGALE_S3_BUCKET']
+filename_template = os.environ['MEGALE_FILENAME_TEMPLATE']
 
 def lambda_handler(event, context):
     url = event['url']
 
     filename = youtube_video_filename(url)
     stream = youtube_video_stream(url)
-    s3.upload_fileobj(stream, bucket, f"files/{filename}")
+    s3.upload_fileobj(stream, bucket, filename)
 
     return {
         'statusCode': 200,
@@ -33,7 +34,7 @@ def youtube_video_filename(url):
     upload_date = info['upload_date']
     ext = info['ext']
 
-    return f"{uploader}/{upload_date}-{id} - {title}.{ext}"
+    return filename_template.format(id=id, uploader=uploader, title=title, upload_date=upload_date, ext=ext)
 
 def youtube_video_info(url):
     command = f"./youtube-dl --dump-json '{url}'"

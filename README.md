@@ -10,7 +10,13 @@ Your personal internet archive.
 
 2. Set the environment variables for your Lambda function:
    - `MEGALE_S3_BUCKET`: where you want the YouTube videos to be saved
-   
+   - `MEGALE_FILENAME_TEMPLATE`: this formats the S3 key that will be saved for each video, for example: `files/{uploader}/{upload_date}-{id} - {title}.{ext}` These variables are currently supported:
+      - `uploader`
+      - `upload_date`
+      - `id`
+      - `title`
+      - `ext`
+
 3. Clone this repo:
 ```bash
 git clone https://github.com/sergiopantoja/megale-bibliotheke
