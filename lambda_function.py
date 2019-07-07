@@ -28,11 +28,12 @@ def youtube_video_filename(url):
     info = youtube_video_info(url)
 
     id = info['id']
+    uploader = info['uploader']
     title = info['title']
     upload_date = info['upload_date']
     ext = info['ext']
 
-    return f"{upload_date}-{id} - {title}.{ext}"
+    return f"{uploader}/{upload_date}-{id} - {title}.{ext}"
 
 def youtube_video_info(url):
     command = f"./youtube-dl --dump-json '{url}'"
