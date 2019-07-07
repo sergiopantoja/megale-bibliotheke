@@ -9,8 +9,11 @@ bucket = os.environ['MEGALE_S3_BUCKET']
 filename_template = os.environ['MEGALE_FILENAME_TEMPLATE']
 
 def lambda_handler(event, context):
-    url = event['url']
+    for record in event['Records']:
+        url = record['body']
+        download_youtube_video_to_s3(url)
 
+def download_youtube_video_to_s3(url):
     filename = youtube_video_filename(url)
     stream = youtube_video_stream(url)
     s3.upload_fileobj(stream, bucket, filename)
