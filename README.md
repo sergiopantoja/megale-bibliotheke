@@ -28,12 +28,13 @@ chmod a+rx ./youtube-dl
 zip function.zip lambda_function.py youtube-dl
 ```
 
-6. Upload the function code by uploading the zip via the Lambda UI in the AWS Console, or using this command below (you'll need the AWS CLI setup with an AWS account that has the `UpdateFunctionCode` permission for Lambda):
+6. Upload the function code via the Lambda UI in the AWS Console, or by using this command below (make sure your CLI user has the `UpdateFunctionCode` permission for Lambda):
 ```bash
 aws lambda update-function-code --function-name your-function-name --zip-file fileb://function.zip
 ```
 
 ## Usage
+Instructions for using this with AWS API Gateway coming soon. In the meantime, you can invoke the function using this AWS CLI command (make sure your CLI user has the `InvokeFunction` permission for Lambda):
 ```bash
 aws lambda invoke --function-name your-function-name --payload '{"url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"}' outfile
 ```
