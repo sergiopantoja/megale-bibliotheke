@@ -6,6 +6,7 @@ import subprocess
 
 S3_BUCKET = os.environ['S3_BUCKET']
 FILENAME_TEMPLATE = os.environ['FILENAME_TEMPLATE']
+YOUTUBE_DL_FORMAT = os.environ['YOUTUBE_DL_FORMAT']
 
 s3 = boto3.client('s3')
 
@@ -25,7 +26,7 @@ def download_youtube_video_to_s3(url):
     }
 
 def youtube_video_stream(url):
-    command = f"./youtube-dl --cache-dir '/tmp' '{url}' -o -"
+    command = f"./youtube-dl --cache-dir '/tmp' --format '{YOUTUBE_DL_FORMAT}' '{url}' -o -"
     ytdl_process = subprocess.Popen(shlex.split(command), stdout=subprocess.PIPE)
     return ytdl_process.stdout
 
